@@ -73,7 +73,8 @@ npm run dist             # Windows installer + portable exe in dist/
 ```
 
 GitHub Actions (`.github/workflows/build.yml`) does all of this on Windows for every push and uploads
-the installer; pushing a tag `v*` publishes a release.
+the installer, and publishes (or refreshes) the GitHub release for the `version` in
+`package.json`. To release a new version, bump `version` and push to `main`.
 
 To update Path of Building, change `pob.ref` in `package.json` to a newer
 [release tag](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/releases).

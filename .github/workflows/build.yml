@@ -51,9 +51,21 @@ jobs:
             dist/*.exe
           if-no-files-found: error
 
-      - name: Publish release (tags only)
-        if: startsWith(github.ref, 'refs/tags/v')
+      # Every push to main publishes (or refreshes) the release for package.json's version,
+      # so a new version is released by bumping "version" in package.json.
+      - name: Read version
+        if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
+        id: ver
+        shell: bash
+        run: echo "tag=v$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Publish release
+        if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.ver.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          name: PoE2 Item Checker ${{ steps.ver.outputs.tag }}
           files: dist/*.exe
+          overwrite_files: true
           generate_release_notes: true
