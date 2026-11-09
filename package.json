@@ -1,0 +1,50 @@
+{
+  "name": "poe2-item-checker",
+  "productName": "PoE2 Item Checker",
+  "version": "0.1.0",
+  "description": "Hover an item in Path of Exile 2, press F2, and see what it does to your build, worked out by Path of Building.",
+  "main": "src/main.js",
+  "license": "MIT",
+  "author": "burkeyta",
+  "pob": {
+    "repo": "PathOfBuildingCommunity/PathOfBuilding-PoE2",
+    "ref": "v0.23.1"
+  },
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.js",
+    "pob": "node tools/get-pob.js",
+    "native": "node tools/build-native.js",
+    "smoke": "node tools/smoke.js",
+    "dist": "node tools/get-pob.js && node tools/build-native.js && electron-builder --win nsis portable --publish never"
+  },
+  "devDependencies": {
+    "electron": "44.9.3",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "io.github.burkeyta.poe2itemchecker",
+    "productName": "PoE2 Item Checker",
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      { "from": "vendor/pob", "to": "pob", "filter": ["src/**/*", "runtime/**/*", "LICENSE.md", "manifest.xml"] },
+      { "from": "pob/server.lua", "to": "server/server.lua" },
+      { "from": "vendor/bin", "to": "bin", "filter": ["keyhelper.exe"] }
+    ],
+    "win": {
+      "target": ["nsis", "portable"],
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "artifactName": "PoE2-Item-Checker-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "PoE2-Item-Checker-Portable-${version}.${ext}"
+    }
+  }
+}

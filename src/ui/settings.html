@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'">
+  <title>Item Checker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="settings">
+  <h1>Item Checker</h1>
+  <p class="dim">Hover an item in Path of Exile 2 and press <b id="hk">F2</b>: Path of Building works out what it does to your build.</p>
+  <div id="problem" class="problem" hidden></div>
+
+  <h2>1. Your build</h2>
+  <p class="dim">In Path of Building: <i>Import/Export Build → Generate</i>, then paste the code or the pobb.in link here.</p>
+  <textarea id="build" rows="4" placeholder="https://pobb.in/...  or  eNrt..."></textarea>
+  <button id="load">Load build</button>
+  <div id="status" class="status none">No build loaded yet.</div>
+  <div id="summary" class="summary" hidden></div>
+
+  <h2>2. Hotkey</h2>
+  <div class="row"><input type="text" id="hotkey" value="F2"><button id="saveHotkey" class="mt0">Save</button><span id="hkmsg" class="dim"></span></div>
+  <p class="dim">Examples: F2, F3, Alt+D. The game must run in <i>Windowed Fullscreen</i> or <i>Windowed</i> mode so the popup can show over it.</p>
+  <label><input type="checkbox" id="adv"> Use advanced copy (Ctrl+Alt+C)</label>
+
+  <h2>Check an item by hand</h2>
+  <p class="dim">Copy an item in the game with Ctrl+C and paste it here (useful for testing).</p>
+  <textarea id="item" rows="4" placeholder="Item Class: ..."></textarea>
+  <button id="check">Check item</button> <span id="checkmsg" class="dim"></span>
+
+  <h2>About</h2>
+  <p class="dim">Version <span id="ver"></span>. Calculations by Path of Building Community (MIT licence), running on your PC.
+    The only input this app gives the game is one Ctrl+C per hotkey press. <span class="link" id="log">Open log</span></p>
+
+  <script src="settings.js"></script>
+</body>
+</html>
