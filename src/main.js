@@ -23,7 +23,11 @@ const keyExe = path.join(resources, 'bin', 'keyhelper.exe');
 
 // ---------------------------------------------------------------------------------- storage
 
-const dataDir = app.getPath('userData');
+// The portable .exe keeps everything (settings, build, log) in a "data" folder next to itself,
+// so the whole app lives in the one folder the player put it in.
+const portableDir = process.env.PORTABLE_EXECUTABLE_DIR;
+const dataDir = portableDir ? path.join(portableDir, 'PoE2 Item Checker data') : app.getPath('userData');
+if (portableDir) app.setPath('userData', path.join(dataDir, 'app'));
 const settingsFile = path.join(dataDir, 'settings.json');
 const buildFile = path.join(dataDir, 'build.xml');
 const logFile = path.join(dataDir, 'log.txt');
@@ -211,7 +215,7 @@ function openSettings() {
 }
 
 function stateForUi() {
-  return { settings, buildStatus, summary: buildSummary, version: app.getVersion(), engineProblem: engine.available() };
+  return { settings, buildStatus, summary: buildSummary, version: app.getVersion(), engineProblem: engine.available(), dataDir };
 }
 function sendSettingsState() { if (settingsWin) settingsWin.webContents.send('settings:state', stateForUi()); }
 

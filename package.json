@@ -1,7 +1,7 @@
 {
   "name": "poe2-item-checker",
   "productName": "PoE2 Item Checker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Hover an item in Path of Exile 2, press F2, and see what it does to your build, worked out by Path of Building.",
   "main": "src/main.js",
   "license": "MIT",

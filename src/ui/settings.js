@@ -11,6 +11,7 @@ function show(state) {
   $('adv').checked = !!settings.advancedCopy;
   if (!$('build').value && settings.buildSource) $('build').value = settings.buildSource;
   $('ver').textContent = version;
+  $('dir').textContent = state.dataDir || '';
   $('status').className = `status ${buildStatus.state}`;
   $('status').textContent = buildStatus.message;
   $('load').disabled = buildStatus.state === 'loading';
